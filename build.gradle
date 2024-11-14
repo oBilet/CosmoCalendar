@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://plugins.gradle.org/m2' }
+        maven { url 'https://nexus.web.cern.ch/nexus/content/repositories/public/' }
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://nexus.web.cern.ch/nexus/content/repositories/public/' }
+        mavenCentral()
+    }
+
+    tasks.withType(Javadoc).all {
+        enabled = false
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

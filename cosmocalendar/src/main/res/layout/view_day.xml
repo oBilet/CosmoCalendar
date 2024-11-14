@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.applikeysolutions.cosmocalendar.view.customviews.CircleAnimationTextView
+        android:id="@+id/tv_day_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/default_day_text_color"
+        android:textSize="@dimen/day_text_size"
+        tools:text="10" />
+
+    <ImageView
+        android:id="@+id/tv_connectedDayIcon"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="7dp" />
+
+</FrameLayout>
