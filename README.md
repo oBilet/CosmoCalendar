@@ -19,7 +19,7 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
 * [Demo](#demo)
 * [Release Notes](#release-notes)
 * [Contact Us](#contact-us)
-* [License](#license)
+* [License](#license) 
 
 # Usage
   ```xml
