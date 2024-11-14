@@ -26,7 +26,7 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
   compile 'com.github.uaksun:cosmocalendar:1.0'
   ```
 
-# Customization
+# Customization  
 
   ### Common
   * calendarOrientation - Possible values: HORIZONTAL, VERTICAL
