@@ -52,30 +52,20 @@ public final class CalendarUtils {
         }
 
 
-        final Calendar holidayCalendar = Calendar.getInstance();
         List<String> monthHolidays = new ArrayList<>();
 
-        if (settingsManager.getHolidays() != null) {
-            for (Holiday holiday : settingsManager.getHolidays()) {
-                holidayCalendar.setTime(holiday.date);
-                if (firstDayOfMonthCalendar.get(Calendar.MONTH) == holidayCalendar.get(Calendar.MONTH) &&
-                        firstDayOfMonthCalendar.get(Calendar.YEAR) == holidayCalendar.get(Calendar.YEAR)) {
-
-                    monthHolidays.addAll(holiday.names);
+        Map<String, List<String>> holidaysMap = settingsManager.getHolidays();
+        if (holidaysMap != null) {
+            String dateKeyString = generateDayKeyForMonth(firstDayOfMonthCalendar);
+            if (holidaysMap.containsKey(dateKeyString)) {
+                List<String> holidayNames = holidaysMap.get(dateKeyString);
+                if (holidayNames != null) {
+                    monthHolidays.addAll(holidayNames);
                 }
             }
         }
 
-        Map<String, BackgroundDeterminator> determinatorMap = new HashMap<>();
-        List<BackgroundDeterminator> determinatorList = settingsManager.getDeterminators();
-        Calendar determinatorCalendar = Calendar.getInstance();
-        if (determinatorList != null) {
-            for (BackgroundDeterminator determinatorItem: determinatorList) {
-                determinatorCalendar.setTime(determinatorItem.date);
-                String key = generateDayKey(determinatorCalendar);
-                determinatorMap.put(key, determinatorItem);
-            }
-        }
+        Map<String, Integer> determinatorMap = settingsManager.getDeterminators();
 
         //Create first day of month
         days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth,determinatorMap));
@@ -94,14 +84,18 @@ public final class CalendarUtils {
         return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth, Map<String,BackgroundDeterminator> determinatorMap) {
+    private static String generateDayKeyForMonth(Calendar calendar) {
+        return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH);
+    }
+
+    private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth, Map<String,Integer> determinatorMap) {
         Day day = new Day(calendar);
         day.setBelongToMonth(calendar.get(Calendar.MONTH) == targetMonth);
 
         String key = generateDayKey(calendar);
-        if (determinatorMap.containsKey(key)){
+        if (determinatorMap!= null && determinatorMap.containsKey(key)){
             day.setDeterminate(true);
-            day.setDeterminator(determinatorMap.get(key));
+            day.setDeterminatorColor(determinatorMap.get(key));
         }
 
         CalendarUtils.setDay(day, settingsManager);

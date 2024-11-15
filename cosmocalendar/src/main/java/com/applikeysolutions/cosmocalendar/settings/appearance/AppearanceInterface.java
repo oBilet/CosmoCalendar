@@ -2,10 +2,9 @@ package com.applikeysolutions.cosmocalendar.settings.appearance;
 
 import android.support.annotation.StyleRes;
 
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AppearanceInterface {
 
@@ -57,9 +56,9 @@ public interface AppearanceInterface {
 
     int getSelectedRangeTextColor();
 
-    List<Holiday> getHolidays();
+    Map<String, List<String>> getHolidays();
 
-    List<BackgroundDeterminator> getDeterminators();
+    Map<String, Integer> getDeterminators();
 
     @StyleRes
     int getDayTextAppearance();
@@ -132,8 +131,8 @@ public interface AppearanceInterface {
 
     void setOtherDayVisibility(boolean isVisible);
 
-    void setHolidays(List<Holiday> holidays);
+    void setHolidays(Map<String, List<String>> holidays);
 
-    void setDeterminators(List<BackgroundDeterminator> determinators);
+    void setDeterminators(Map<String, Integer> determinators);
 
 }

@@ -14,12 +14,11 @@ import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.Connect
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionModel;
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class SettingsManager implements AppearanceInterface, DateInterface, CalendarListsInterface, SelectionInterface {
@@ -182,12 +181,12 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
-    public List<Holiday> getHolidays() {
+    public Map<String, List<String>> getHolidays() {
         return appearanceModel.getHolidays();
     }
 
     @Override
-    public List<BackgroundDeterminator> getDeterminators() {
+    public Map<String, Integer> getDeterminators() {
         return appearanceModel.getDeterminators();
     }
 
@@ -366,12 +365,12 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
-    public void setHolidays(List<Holiday> holidays) {
+    public void setHolidays(Map<String, List<String>> holidays) {
         appearanceModel.setHolidays(holidays);
     }
 
     @Override
-    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+    public void setDeterminators(Map<String, Integer> determinators) {
         appearanceModel.setDeterminators(determinators);
     }
 

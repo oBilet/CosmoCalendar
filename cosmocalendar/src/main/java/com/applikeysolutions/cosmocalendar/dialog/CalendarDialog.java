@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.customizablecalendar.R;
 import com.applikeysolutions.cosmocalendar.model.Day;
@@ -30,6 +28,7 @@ import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class CalendarDialog extends Dialog implements View.OnClickListener,
@@ -237,12 +236,12 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
-    public List<Holiday> getHolidays() {
+    public Map<String, List<String>> getHolidays() {
         return calendarView.getHolidays();
     }
 
     @Override
-    public List<BackgroundDeterminator> getDeterminators() {
+    public Map<String, Integer> getDeterminators() {
         return calendarView.getDeterminators();
     }
 
@@ -417,12 +416,12 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
-    public void setHolidays(List<Holiday> holidays) {
+    public void setHolidays(Map<String, List<String>> holidays) {
         calendarView.setHolidays(holidays);
     }
 
     @Override
-    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+    public void setDeterminators(Map<String, Integer> determinators) {
         calendarView.setDeterminators(determinators);
     }
 

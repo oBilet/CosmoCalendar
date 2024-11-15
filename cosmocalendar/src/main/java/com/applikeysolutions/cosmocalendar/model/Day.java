@@ -1,7 +1,6 @@
 package com.applikeysolutions.cosmocalendar.model;
 
 import com.applikeysolutions.cosmocalendar.selection.SelectionState;
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.DateUtils;
 
 import java.util.Calendar;
@@ -28,7 +27,7 @@ public class Day {
 
     private boolean isDeterminate = false;
 
-    private BackgroundDeterminator determinator;
+    private Integer determinatorColor;
 
     public Day(Date date) {
         this.calendar = DateUtils.getCalendar(date);
@@ -48,12 +47,12 @@ public class Day {
         return isDeterminate;
     }
 
-    public BackgroundDeterminator getDeterminator() {
-        return determinator;
+    public Integer getDeterminatorColor() {
+        return determinatorColor;
     }
 
-    public void setDeterminator(BackgroundDeterminator determinator) {
-        this.determinator = determinator;
+    public void setDeterminatorColor(Integer determinator) {
+        this.determinatorColor = determinator;
     }
 
     public void setDeterminate(boolean determinate) {

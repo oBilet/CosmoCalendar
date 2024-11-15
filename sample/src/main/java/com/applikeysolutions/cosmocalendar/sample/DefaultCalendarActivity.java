@@ -22,8 +22,6 @@ import com.applikeysolutions.cosmocalendar.selection.criteria.month.NextMonthCri
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.PreviousMonthCriteria;
 import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
@@ -32,7 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -107,26 +107,15 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         // Test verisi olarak Holiday listesi oluşturuluyor
-        List<Holiday> holidays = new ArrayList<>();
-        List<BackgroundDeterminator> determinators = new ArrayList<>();
+        Map<String, List<String>> holidays = new HashMap<>();
+        Map<String, Integer> determinators = new HashMap<>();
 
         Log.d("testsize", holidays.size()+ "");
 
         try {
-            holidays.add(new Holiday(dateFormat.parse("2024-11-10T00:00:00"), Arrays.asList("15 Kasım - Kurban Bayramı Arefesi","test")));
-            holidays.add(new Holiday(dateFormat.parse("2024-12-11T00:00:00"), Arrays.asList("16-17-18 - Kasım Kurban Bayramı")));
-            holidays.add(new Holiday(dateFormat.parse("2025-01-11T00:00:00"), Arrays.asList("Yılbaşı")));
-
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-21T00:00:00"),getResources().getColor(R.color.green)));
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-22T00:00:00"),getResources().getColor(R.color.green)));
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-23T00:00:00"),getResources().getColor(R.color.palered)));
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-24T00:00:00"),getResources().getColor(R.color.green)));
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-25T00:00:00"),getResources().getColor(R.color.palered)));
-            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-26T00:00:00"),getResources().getColor(R.color.palered)));
-            //holidays.add(new Holiday(dateFormat.parse("2025-01-11T00:00:00"), Arrays.asList("16-17-18 - Kasım Kurban Bayramı")));
-//            holidays.add(new Holiday(dateFormat.parse("2024-05-19T00:00:00"), Arrays.asList("Atatürk'ü Anma, Gençlik ve Spor Bayramı")));
-//            holidays.add(new Holiday(dateFormat.parse("2024-06-15T00:00:00"), Arrays.asList("Kurban Bayramı Arefesi")));
-//            holidays.add(new Holiday(dateFormat.parse("2025-01-15T00:00:00"), Arrays.asList("yılbaşı 2025")));
+            holidays.put("2024-10", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi","test"));
+            holidays.put("2024-11", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi"));
+            determinators.put("2024-10-12", getResources().getColor(R.color.green));
 
 
         } catch (Exception e) {

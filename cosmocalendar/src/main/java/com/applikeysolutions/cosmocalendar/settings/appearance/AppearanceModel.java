@@ -1,9 +1,7 @@
 package com.applikeysolutions.cosmocalendar.settings.appearance;
 
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
-
 import java.util.List;
+import java.util.Map;
 
 public class AppearanceModel implements AppearanceInterface {
 
@@ -82,7 +80,7 @@ public class AppearanceModel implements AppearanceInterface {
     private int selectedRangeBackgroundColor;
     private int selectedRangeTextColor;
 
-    private List<Holiday> holidays;
+    private Map<String, List<String>> holidays;
 
     /**
      * Orientation of calendar
@@ -98,7 +96,7 @@ public class AppearanceModel implements AppearanceInterface {
     //Defines if we need to display week day title for whole calendar
     private boolean showDaysOfWeekTitle;
 
-    private List<BackgroundDeterminator> determinators;
+    private Map<String, Integer> determinators;
 
 
     @Override
@@ -222,12 +220,12 @@ public class AppearanceModel implements AppearanceInterface {
     }
 
     @Override
-    public List<Holiday> getHolidays() {
+    public Map<String, List<String>> getHolidays() {
         return holidays;
     }
 
     @Override
-    public List<BackgroundDeterminator> getDeterminators() {
+    public Map<String, Integer> getDeterminators() {
         return determinators;
     }
 
@@ -402,12 +400,12 @@ public class AppearanceModel implements AppearanceInterface {
     }
 
     @Override
-    public void setHolidays(List<Holiday> holidays) {
+    public void setHolidays(Map<String, List<String>> holidays) {
         this.holidays = holidays;
     }
 
     @Override
-    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+    public void setDeterminators(Map<String, Integer> determinators) {
         this.determinators = determinators;
     }
 }

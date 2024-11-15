@@ -223,13 +223,13 @@ public class CircleAnimationTextView extends AppCompatTextView {
                 case SINGLE_DAY:
                     circleColor = calendarView.getSelectedDayBackgroundColor();
                     if (day.isDeterminate()){
-                        circleColor = day.getDeterminator().getColor();
+                        circleColor = day.getDeterminatorColor();
                     }
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
 
                 case SINGLE_DAY_DETERMINATE:
-                    circleColor = day.getDeterminator().getColor();
+                    circleColor = day.getDeterminatorColor();
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
             }

@@ -51,9 +51,7 @@ import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
-import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
-import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.utils.ViewIDGenerator;
 import com.applikeysolutions.cosmocalendar.utils.WeekDay;
@@ -67,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -962,12 +961,12 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     }
 
     @Override
-    public List<Holiday> getHolidays() {
+    public Map<String, List<String>> getHolidays() {
         return settingsManager.getHolidays();
     }
 
     @Override
-    public List<BackgroundDeterminator> getDeterminators() {
+    public Map<String, Integer> getDeterminators() {
         return settingsManager.getDeterminators();
     }
 
@@ -1199,12 +1198,12 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     }
 
     @Override
-    public void setHolidays(List<Holiday> holidays) {
+    public void setHolidays(Map<String, List<String>> holidays) {
         settingsManager.setHolidays(holidays);
     }
 
     @Override
-    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+    public void setDeterminators(Map<String, Integer> determinators) {
         settingsManager.setDeterminators(determinators);
     }
 
