@@ -1205,6 +1205,8 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public void setDeterminators(Map<String, Integer> determinators) {
         settingsManager.setDeterminators(determinators);
+        recreateInitialMonth(hasMinOrMaxVisibleDateLimit);
+        update();
     }
 
     @Override

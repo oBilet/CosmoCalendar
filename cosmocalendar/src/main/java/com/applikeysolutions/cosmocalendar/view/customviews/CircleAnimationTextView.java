@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 import com.applikeysolutions.cosmocalendar.model.Day;
+import com.applikeysolutions.cosmocalendar.selection.BaseSelectionManager;
 import com.applikeysolutions.cosmocalendar.selection.SelectionState;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
@@ -198,7 +199,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
         return selectionState;
     }
 
-    public void setSelectionStateAndAnimate(SelectionState state, CalendarView calendarView, Day day) {
+    public void setSelectionStateAndAnimate(SelectionState state, CalendarView calendarView, Day day, BaseSelectionManager baseSelectionManager) {
         isStateChanged(state);
         selectionState = state;
         this.calendarView = calendarView;
@@ -222,14 +223,17 @@ public class CircleAnimationTextView extends AppCompatTextView {
 
                 case SINGLE_DAY:
                     circleColor = calendarView.getSelectedDayBackgroundColor();
-                    if (day.isDeterminate()){
-                        circleColor = day.getDeterminatorColor();
-                    }
+
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
 
                 case SINGLE_DAY_DETERMINATE:
-                    circleColor = day.getDeterminatorColor();
+                    if (baseSelectionManager.isDaySelected(day)) {
+                        circleColor = calendarView.getSelectedDayBackgroundColor();
+                    } else {
+                        circleColor = day.getDeterminatorColor();
+                    }
+
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
             }

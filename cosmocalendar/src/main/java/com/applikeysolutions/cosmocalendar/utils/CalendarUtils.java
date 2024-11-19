@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -81,7 +80,9 @@ public final class CalendarUtils {
     }
 
     private static String generateDayKey(Calendar calendar) {
-        return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+        String month = String.format("%02d", calendar.get(Calendar.MONTH) + 1);
+        String day = String.format("%02d",  calendar.get(Calendar.DAY_OF_MONTH));
+        return calendar.get(Calendar.YEAR) + "-" + month + "-" + day;
     }
 
     private static String generateDayKeyForMonth(Calendar calendar) {

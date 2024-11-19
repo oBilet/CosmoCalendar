@@ -2,6 +2,7 @@ package com.applikeysolutions.cosmocalendar.adapter.viewholder;
 
 import android.content.res.Resources;
 import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -34,15 +35,12 @@ public class DayHolder extends BaseDayHolder {
         TextViewCompat.setTextAppearance(ctvDay, calendarView.getDayTextAppearance());
 
         boolean isSelected = selectionManager.isDaySelected(day);
-        if (isSelected && !day.isDisabled()) {
+        if (isSelected && !day.isDisabled() || day.isDeterminate()) {
             select(day);
         } else {
             unselect(day);
         }
 
-        if (day.isDeterminate()){
-            select(day);
-        }
 
         if (day.isCurrent()) {
             addCurrentDayIcon(isSelected);
@@ -100,7 +98,14 @@ public class DayHolder extends BaseDayHolder {
                 ctvDay.setTextColor(calendarView.getSelectedRangeTextColor());
             }
             if (state == SelectionState.SINGLE_DAY){
-                ctvDay.setTextColor(calendarView.getDayTextColor());
+                if (day.isDeterminate()) {
+                    state = SelectionState.SINGLE_DAY_DETERMINATE;
+                    if (selectionManager.isDaySelected(day)){
+                        ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
+                    }else {
+                        ctvDay.setTextColor(calendarView.getDayTextColor());
+                    }
+                }
             }
 
         } else {
@@ -148,31 +153,39 @@ public class DayHolder extends BaseDayHolder {
                 ctvDay.showAsStartCircle(calendarView, false);
             } else if (day.isSelectionCircleDrawed() && state == SelectionState.END_RANGE_DAY) {
                 ctvDay.showAsEndCircle(calendarView, false);
-            } else if( state == SelectionState.SINGLE_DAY_DETERMINATE){
-                ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
-            }else {
-                ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+            } else if (state == SelectionState.SINGLE_DAY_DETERMINATE) {
+                ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
+            } else {
+                ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
             }
         } else {
             switch (state) {
                 case SINGLE_DAY:
-                case SINGLE_DAY_DETERMINATE:
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsSingleCircle(calendarView);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
+                    }
+                    break;
+
+                case SINGLE_DAY_DETERMINATE:
+                    if (selectionManager.isDaySelected(day)) {
+                        ctvDay.showAsSingleCircle(calendarView);
+
+                    } else {
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     }
                     break;
 
                 case RANGE_DAY:
-                    ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+                    ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     break;
 
                 case START_RANGE_DAY_WITHOUT_END:
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsStartCircleWithouEnd(calendarView, false);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day,selectionManager);
                     }
                     break;
 
@@ -180,7 +193,7 @@ public class DayHolder extends BaseDayHolder {
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsStartCircle(calendarView, false);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     }
                     break;
 
@@ -188,7 +201,7 @@ public class DayHolder extends BaseDayHolder {
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsEndCircle(calendarView, false);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day,selectionManager);
                     }
                     break;
             }
