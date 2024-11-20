@@ -228,16 +228,16 @@ public class CircleAnimationTextView extends AppCompatTextView {
                     break;
 
                 case SINGLE_DAY_DETERMINATE:
-                    if (baseSelectionManager.isDaySelected(day)) {
-                        circleColor = calendarView.getSelectedDayBackgroundColor();
-                    } else {
-                        circleColor = day.getDeterminatorColor();
-                    }
-
+                    circleColor = day.getDeterminatorColor();
+                    setBackgroundColor(Color.TRANSPARENT);
+                    break;
+                default:
+                    circleColor = calendarView.getSelectedDayBackgroundColor();
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
             }
         }
+        createCirclePaint();
         animateView();
     }
 

@@ -2,7 +2,6 @@ package com.applikeysolutions.cosmocalendar.adapter.viewholder;
 
 import android.content.res.Resources;
 import android.support.v4.widget.TextViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -93,16 +92,14 @@ public class DayHolder extends BaseDayHolder {
             state = ((RangeSelectionManager) selectionManager).getSelectedState(day);
             if (state == SelectionState.END_RANGE_DAY) {
                 ctvDay.setTextColor(calendarView.getSelectedDayBackgroundStartColor());
-            }
-            if (state == SelectionState.RANGE_DAY){
+            } else if (state == SelectionState.RANGE_DAY) {
                 ctvDay.setTextColor(calendarView.getSelectedRangeTextColor());
-            }
-            if (state == SelectionState.SINGLE_DAY){
+            } else if (state == SelectionState.SINGLE_DAY) {
                 if (day.isDeterminate()) {
-                    state = SelectionState.SINGLE_DAY_DETERMINATE;
-                    if (selectionManager.isDaySelected(day)){
+                    if (selectionManager.isDaySelected(day)) {
                         ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
-                    }else {
+                    } else {
+                        state = SelectionState.SINGLE_DAY_DETERMINATE;
                         ctvDay.setTextColor(calendarView.getDayTextColor());
                     }
                 }
@@ -110,10 +107,11 @@ public class DayHolder extends BaseDayHolder {
 
         } else {
             if (day.isDeterminate()) {
-                state = SelectionState.SINGLE_DAY_DETERMINATE;
-                if (selectionManager.isDaySelected(day)){
+                if (selectionManager.isDaySelected(day)) {
+                    state = SelectionState.SINGLE_DAY;
                     ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
-                }else {
+                } else {
+                    state = SelectionState.SINGLE_DAY_DETERMINATE;
                     ctvDay.setTextColor(calendarView.getDayTextColor());
                 }
             } else {
@@ -185,7 +183,7 @@ public class DayHolder extends BaseDayHolder {
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsStartCircleWithouEnd(calendarView, false);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day,selectionManager);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     }
                     break;
 
@@ -201,7 +199,7 @@ public class DayHolder extends BaseDayHolder {
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsEndCircle(calendarView, false);
                     } else {
-                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day,selectionManager);
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     }
                     break;
             }
