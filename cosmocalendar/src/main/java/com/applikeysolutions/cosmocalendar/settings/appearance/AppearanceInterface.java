@@ -3,6 +3,7 @@ package com.applikeysolutions.cosmocalendar.settings.appearance;
 import android.support.annotation.StyleRes;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -134,5 +135,8 @@ public interface AppearanceInterface {
     void setHolidays(Map<String, List<String>> holidays);
 
     void setDeterminators(Map<String, Integer> determinators);
+
+    void setHolidaysPins(HashMap<String,String> pinsHash);
+    HashMap<String, String> getHolidaysPins();
 
 }

@@ -15,6 +15,16 @@ public class Day {
     private boolean disabled;
     private boolean weekend;
 
+    public boolean getIsHoliday() {
+        return isHoliday;
+    }
+
+    public void setIsHoliday(boolean holiday) {
+        isHoliday = holiday;
+    }
+
+    private boolean isHoliday = false;
+
     //Connected days
     private boolean fromConnectedCalendar;
     private int connectedDaysTextColor;

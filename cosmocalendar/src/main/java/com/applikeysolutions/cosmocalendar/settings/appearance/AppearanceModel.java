@@ -1,5 +1,6 @@
 package com.applikeysolutions.cosmocalendar.settings.appearance;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +82,7 @@ public class AppearanceModel implements AppearanceInterface {
     private int selectedRangeTextColor;
 
     private Map<String, List<String>> holidays;
+    HashMap<String, String> pinsHash;
 
     /**
      * Orientation of calendar
@@ -407,5 +409,15 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public void setDeterminators(Map<String, Integer> determinators) {
         this.determinators = determinators;
+    }
+
+    @Override
+    public void setHolidaysPins(HashMap<String, String> pinsHash) {
+        this.pinsHash = pinsHash;
+    }
+
+    @Override
+    public HashMap<String, String> getHolidaysPins() {
+        return pinsHash;
     }
 }

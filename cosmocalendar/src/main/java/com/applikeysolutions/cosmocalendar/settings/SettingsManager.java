@@ -17,6 +17,7 @@ import com.applikeysolutions.cosmocalendar.settings.selection.SelectionModel;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -372,6 +373,16 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public void setDeterminators(Map<String, Integer> determinators) {
         appearanceModel.setDeterminators(determinators);
+    }
+
+    @Override
+    public void setHolidaysPins(HashMap<String, String> pinsHash) {
+        appearanceModel.setHolidaysPins(pinsHash);
+    }
+
+    @Override
+    public HashMap<String, String> getHolidaysPins() {
+        return appearanceModel.getHolidaysPins();
     }
 
     @Override

@@ -40,6 +40,9 @@ public class DayHolder extends BaseDayHolder {
             unselect(day);
         }
 
+        if (day.getIsHoliday()){
+            ivConnectedDay.setImageDrawable(calendarView.getContext().getResources().getDrawable(calendarView.getConnectedDayIconRes()));
+        }
 
         if (day.isCurrent()) {
             addCurrentDayIcon(isSelected);

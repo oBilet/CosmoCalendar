@@ -27,6 +27,7 @@ import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -423,6 +424,16 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     @Override
     public void setDeterminators(Map<String, Integer> determinators) {
         calendarView.setDeterminators(determinators);
+    }
+
+    @Override
+    public void setHolidaysPins(HashMap<String, String> pinsHash) {
+
+    }
+
+    @Override
+    public HashMap<String, String> getHolidaysPins() {
+        return null;
     }
 
     @Override

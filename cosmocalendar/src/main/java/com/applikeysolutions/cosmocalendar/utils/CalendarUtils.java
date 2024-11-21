@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -86,7 +87,8 @@ public final class CalendarUtils {
     }
 
     private static String generateDayKeyForMonth(Calendar calendar) {
-        return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH);
+        String month = String.format("%02d", calendar.get(Calendar.MONTH) + 1);
+        return calendar.get(Calendar.YEAR) + "-" + month;
     }
 
     private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth, Map<String,Integer> determinatorMap) {
@@ -97,6 +99,11 @@ public final class CalendarUtils {
         if (determinatorMap!= null && determinatorMap.containsKey(key)){
             day.setDeterminate(true);
             day.setDeterminatorColor(determinatorMap.get(key));
+        }
+
+        HashMap<String, String> holidayPins = settingsManager.getHolidaysPins();
+        if (holidayPins != null && holidayPins.containsKey(key)) {
+            day.setIsHoliday(true);
         }
 
         CalendarUtils.setDay(day, settingsManager);

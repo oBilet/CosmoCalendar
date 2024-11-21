@@ -63,6 +63,7 @@ import com.applikeysolutions.customizablecalendar.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1207,6 +1208,18 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         settingsManager.setDeterminators(determinators);
         recreateInitialMonth(hasMinOrMaxVisibleDateLimit);
         update();
+    }
+
+    @Override
+    public void setHolidaysPins(HashMap<String, String> pinsHash) {
+        settingsManager.setHolidaysPins(pinsHash);
+        recreateInitialMonth(hasMinOrMaxVisibleDateLimit);
+        update();
+    }
+
+    @Override
+    public HashMap<String, String> getHolidaysPins() {
+        return settingsManager.getHolidaysPins();
     }
 
     @Override
