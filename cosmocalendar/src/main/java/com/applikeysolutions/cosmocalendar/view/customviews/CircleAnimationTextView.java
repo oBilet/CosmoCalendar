@@ -96,6 +96,12 @@ public class CircleAnimationTextView extends AppCompatTextView {
                     drawCircle(canvas);
                     break;
 
+                case SINGLE_RANGE_DAY:
+                    drawCircleOutlined(canvas);
+                    drawInnerOutlinedCircle(canvas);
+                    drawCircle(canvas);
+                    break;
+
                 case SINGLE_DAY:
                 case SINGLE_DAY_DETERMINATE:
                     //Animation not started yet
@@ -151,6 +157,21 @@ public class CircleAnimationTextView extends AppCompatTextView {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 2, circleUnderPaint);
     }
 
+    private void drawCircleOutlined(Canvas canvas) {
+        if (circleUnderPaint == null || stateChanged) {
+            createCircleUnderPaint();
+        }
+        final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 1.6f, circleUnderPaint);
+    }
+    private void drawInnerOutlinedCircle(Canvas canvas) {
+        if (circleUnderPaint == null || stateChanged) {
+            createCircleUnderPaintSingleRange();
+        }
+        final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 1.8f, circleUnderPaint);
+    }
+
     private void createCirclePaint() {
         circlePaint = new Paint();
         circlePaint.setColor(circleColor);
@@ -160,6 +181,12 @@ public class CircleAnimationTextView extends AppCompatTextView {
     private void createCircleUnderPaint() {
         circleUnderPaint = new Paint();
         circleUnderPaint.setColor(calendarView.getSelectedDayBackgroundColor());
+        circleUnderPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+    }
+
+    private void createCircleUnderPaintSingleRange() {
+        circleUnderPaint = new Paint();
+        circleUnderPaint.setColor(calendarView.getSelectedDayTextColor());
         circleUnderPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
@@ -216,6 +243,10 @@ public class CircleAnimationTextView extends AppCompatTextView {
                     circleColor = calendarView.getSelectedDayBackgroundEndColor();
                     break;
 
+                case SINGLE_RANGE_DAY:
+                    circleColor = calendarView.getSelectedDayBackgroundStartColor();
+                    break;
+
                 case START_RANGE_DAY_WITHOUT_END:
                     setBackgroundColor(Color.TRANSPARENT);
                     circleColor = calendarView.getSelectedDayBackgroundStartColor();
@@ -231,6 +262,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
                     circleColor = day.getDeterminatorColor();
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
+
                 default:
                     circleColor = calendarView.getSelectedDayBackgroundColor();
                     setBackgroundColor(Color.TRANSPARENT);
@@ -339,6 +371,15 @@ public class CircleAnimationTextView extends AppCompatTextView {
         this.calendarView = calendarView;
         selectionState = SelectionState.START_RANGE_DAY;
         showAsCircle(calendarView.getSelectedDayBackgroundStartColor());
+    }
+
+    public void showAsDoubleCircle(CalendarView calendarView, boolean animate) {
+        if (animate) {
+            clearVariables();
+        }
+        this.calendarView = calendarView;
+        selectionState = SelectionState.SINGLE_RANGE_DAY;
+        showAsCircle(calendarView.getSelectedRangeBackgroundColor());
     }
 
     public void showAsStartCircleWithouEnd(CalendarView calendarView, boolean animate) {

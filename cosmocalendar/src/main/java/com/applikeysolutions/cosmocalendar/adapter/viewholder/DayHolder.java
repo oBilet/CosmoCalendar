@@ -40,8 +40,10 @@ public class DayHolder extends BaseDayHolder {
             unselect(day);
         }
 
-        if (day.getIsHoliday()){
+        if (day.getIsHoliday()) {
             ivConnectedDay.setImageDrawable(calendarView.getContext().getResources().getDrawable(calendarView.getConnectedDayIconRes()));
+        } else {
+            ivConnectedDay.setImageDrawable(null);
         }
 
         if (day.isCurrent()) {
@@ -106,6 +108,8 @@ public class DayHolder extends BaseDayHolder {
                         ctvDay.setTextColor(calendarView.getDayTextColor());
                     }
                 }
+            }else if(state == SelectionState.SINGLE_RANGE_DAY){
+                ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
             }
 
         } else {
@@ -201,6 +205,13 @@ public class DayHolder extends BaseDayHolder {
                 case END_RANGE_DAY:
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsEndCircle(calendarView, false);
+                    } else {
+                        ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
+                    }
+                    break;
+                case SINGLE_RANGE_DAY:
+                    if (day.isSelectionCircleDrawed()) {
+                        ctvDay.showAsDoubleCircle(calendarView, false);
                     } else {
                         ctvDay.setSelectionStateAndAnimate(state, calendarView, day, selectionManager);
                     }

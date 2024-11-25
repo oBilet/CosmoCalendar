@@ -83,6 +83,7 @@ public class AppearanceModel implements AppearanceInterface {
 
     private Map<String, List<String>> holidays;
     HashMap<String, String> pinsHash;
+    boolean canSelectSameDay = false;
 
     /**
      * Orientation of calendar
@@ -219,6 +220,16 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public int getSelectedRangeTextColor() {
         return selectedRangeTextColor;
+    }
+
+    @Override
+    public boolean getCanSelectSameDay() {
+        return canSelectSameDay;
+    }
+
+    @Override
+    public void setCanSelectSameDay(boolean canSelectSameDay) {
+        this.canSelectSameDay = canSelectSameDay;
     }
 
     @Override

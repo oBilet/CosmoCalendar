@@ -237,6 +237,16 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
+    public boolean getCanSelectSameDay() {
+        return calendarView.getCanSelectSameDay();
+    }
+
+    @Override
+    public void setCanSelectSameDay(boolean canSelectSameDay) {
+        calendarView.setCanSelectSameDay(canSelectSameDay);
+    }
+
+    @Override
     public Map<String, List<String>> getHolidays() {
         return calendarView.getHolidays();
     }
@@ -428,12 +438,12 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
 
     @Override
     public void setHolidaysPins(HashMap<String, String> pinsHash) {
-
+        calendarView.setHolidaysPins(pinsHash);
     }
 
     @Override
     public HashMap<String, String> getHolidaysPins() {
-        return null;
+        return calendarView.getHolidaysPins();
     }
 
     @Override

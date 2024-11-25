@@ -57,6 +57,10 @@ public interface AppearanceInterface {
 
     int getSelectedRangeTextColor();
 
+    boolean getCanSelectSameDay();
+
+    void setCanSelectSameDay(boolean canSelectSameDay);
+
     Map<String, List<String>> getHolidays();
 
     Map<String, Integer> getDeterminators();

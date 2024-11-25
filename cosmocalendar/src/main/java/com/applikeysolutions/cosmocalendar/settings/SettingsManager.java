@@ -182,6 +182,16 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
+    public boolean getCanSelectSameDay() {
+        return appearanceModel.getCanSelectSameDay();
+    }
+
+    @Override
+    public void setCanSelectSameDay(boolean canSelectSameDay) {
+        appearanceModel.setCanSelectSameDay(canSelectSameDay);
+    }
+
+    @Override
     public Map<String, List<String>> getHolidays() {
         return appearanceModel.getHolidays();
     }

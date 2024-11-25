@@ -365,7 +365,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
                 break;
 
             case SelectionType.RANGE:
-                selectionManager = new RangeSelectionManager(this);
+                selectionManager = new RangeSelectionManager(this, settingsManager.getCanSelectSameDay());
                 break;
 
             case SelectionType.NONE:
@@ -959,6 +959,16 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public int getSelectedRangeTextColor() {
         return settingsManager.getSelectedRangeTextColor();
+    }
+
+    @Override
+    public boolean getCanSelectSameDay() {
+        return settingsManager.getCanSelectSameDay();
+    }
+
+    @Override
+    public void setCanSelectSameDay(boolean canSelectSameDay) {
+        settingsManager.setCanSelectSameDay(canSelectSameDay);
     }
 
     @Override

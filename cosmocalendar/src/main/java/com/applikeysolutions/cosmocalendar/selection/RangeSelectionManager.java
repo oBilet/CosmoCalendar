@@ -10,9 +10,15 @@ public class RangeSelectionManager extends BaseSelectionManager {
 
     private Pair<Day, Day> days;
     private Day tempDay;
+    private boolean canSelectSameDay = false;
 
     public RangeSelectionManager(OnDaySelectedListener onDaySelectedListener) {
         this.onDaySelectedListener = onDaySelectedListener;
+    }
+
+    public RangeSelectionManager(OnDaySelectedListener onDaySelectedListener, boolean canSelectSameDay) {
+        this.onDaySelectedListener = onDaySelectedListener;
+        this.canSelectSameDay = canSelectSameDay;
     }
 
     public Pair<Day, Day> getDays() {
@@ -25,7 +31,7 @@ public class RangeSelectionManager extends BaseSelectionManager {
             tempDay = day;
             days = null;
         } else {
-            if (tempDay == day) {
+            if (tempDay == day  && !canSelectSameDay) {
                 return;
             }
             if (tempDay.getCalendar().getTime().before(day.getCalendar().getTime())) {
@@ -67,6 +73,9 @@ public class RangeSelectionManager extends BaseSelectionManager {
         if (days == null) {
             return SelectionState.START_RANGE_DAY_WITHOUT_END;
         } else if (days.first.equals(day)) {
+            if (days.first.equals(days.second)) {
+                return SelectionState.SINGLE_RANGE_DAY;
+            }
             return SelectionState.START_RANGE_DAY;
         } else if (days.second.equals(day)) {
             return SelectionState.END_RANGE_DAY;
