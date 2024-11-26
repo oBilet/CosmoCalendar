@@ -1,7 +1,8 @@
 # CosmoCalendar
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/AppliKeySolutions/CosmoCalendar/blob/master/LICENSE)
 
-Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Mustafa Bayram.
+Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Mustafa Bayram & Serhat Öztürk.
+
 
 ![](pictures/cosmo-calendar.png)
 
@@ -13,6 +14,9 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
    * [Navigation buttons](#navigation-buttons)
    * [Weekend days](#weekend-days)
    * [Connected days](#connected-days)
+   * [Holidays pins](#holidays-pins)
+   * [Holidays for month view](#holidays-for-month-view)
+   * [Custom date color determinators](#custom-date-color-determinators)
    * [Disabled days](#disabled-days)
    * [Month change listener](#month-change-listener)
    * [Calendar dialog](#calendar-dialog)
@@ -23,7 +27,7 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
 
 # Usage
   ```xml
-  compile 'com.github.uaksun:cosmocalendar:1.0' 
+  implementation 'com.github.oBilet:CosmoCalendar:2.0' 
   ```
 
 # Customization  
@@ -68,6 +72,7 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
   * weekendDayTextColor
   
   ### Connected days
+   (Performance problems occur on multiple holidays. Instead, it is recommended to use the setHolidaysPins function, which is in version 2.0.)
   You can add some days for example holidays:
   ```java
   //Set days you want to connect
@@ -92,6 +97,49 @@ Made by [Applikey Solutions](https://applikeysolutions.com) and updated by Musta
   ```java
   calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP);
   ```
+
+ ### Holidays pins
+ You can add some days for example holidays:
+
+  ```java
+  //Set days you want to connect
+
+  viewBinding.datePickerCalendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP_RIGHT);
+  viewBinding.datePickerCalendarView.setConnectedDayIconRes(R.drawable.blue_circle_holiday);
+
+  HashMap<String,String> holidaysPins
+  holidaysPins.put("2024-11-11","2024-11-11") // yyyy-mm-dd 
+  datePickerCalendarView.setHolidaysPins(holidaysPins)  
+  ```
+  ![](pictures/addholidayspins.png) 
+
+ ### Holidays for month view
+ You can add some days for example holidays:
+
+  ```java
+  //Set days you want to connect
+
+  HashMap<String, List<String>> holidaysMap
+  holidaysMap.put("2024-01", listOf("1 Ocak - Yılbaşı")) //yyyy-mm (all holidays that belongs to the selected month)
+  holidaysMap.put("2024-03", listOf("29 Mart - Ramazan bayramı arefesi", "30-31 Mart Ramazan bayramı"))
+  datePickerCalendarView.setHolidays(sholidaysMap);
+  ```
+  ![](pictures/addholidayspins.png) 
+
+ ### Custom date color determinators
+
+ It allows the background of any day to be set in the desired color. Since this background disappears when the selection is made, prices can be specified on any day.
+
+  ```java
+  //Set days you want to desire
+
+  private Map<String, Integer> calendarPriceInfoItems = new HashMap<>(); //yyyy-mm-dd , ContextCompat.getColor(context, R.color.pale_red) selected color resource id
+  holidaysMap.put("2024-01-02", ContextCompat.getColor(context, R.color.pale_green))
+  holidaysMap.put("2024-01-03", ContextCompat.getColor(context, R.color.pale_green))
+
+  datePickerCalendarView.setDeterminators(calendarPriceInfoItems);
+  ```
+  ![](pictures/determinators.png) 
   
   ### Disabled days
   You can add days so that you can not select them:
