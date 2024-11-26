@@ -211,6 +211,10 @@ Range             |  Customized
 ### 1.0.4
 - Fixed small bugs
 
+  ### 2.0
+- Holidays pins, Determinators improvements done
+- Performance improvements
+
 # Contact Us
 
 You can always contact us via github@applikey.biz We are open for any inquiries regarding our libraries and controls, new open-source projects and other ways of contributing to the community. If you have used our component in your project we would be extremely happy if you write us your feedback and let us know about it!
