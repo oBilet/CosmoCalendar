@@ -9,8 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.applikeysolutions.cosmocalendar.sample.DefaultCalendarActivity"
-            android:screenOrientation="portrait">
+        <activity android:name="com.applikeysolutions.cosmocalendar.sample.DefaultCalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
