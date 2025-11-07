@@ -99,7 +99,7 @@ public class MultipleSelectionBarAdapter extends RecyclerView.Adapter<RecyclerVi
             final SelectionBarContentItem selectionBarContentItem = (SelectionBarContentItem) items.get(position);
             catvDay.setText(String.valueOf(selectionBarContentItem.getDay().getDayNumber()));
             catvDay.setTextColor(calendarView.getSelectedDayTextColor());
-            catvDay.showAsSingleCircle(calendarView);
+            catvDay.showAsSingleCircle(calendarView, selectionBarContentItem.getDay());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

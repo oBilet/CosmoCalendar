@@ -6,7 +6,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,7 +53,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default_calendar);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        //setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         initViews();
         createCriterias();
@@ -82,7 +81,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         days.add(calendar.getTimeInMillis());
         cal.add(Calendar.DAY_OF_MONTH, 2);
         days.add(cal.getTimeInMillis());
-        cal.add(Calendar.DAY_OF_MONTH, 25);
+        cal.add(Calendar.DAY_OF_MONTH, 2);
         Date date = new Date();
         date.setTime(cal.getTimeInMillis());
         days.add(date.getTime());
@@ -100,6 +99,7 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView.setSelectedDayBackgroundStartColor(getResources().getColor(R.color.selected_blue));
         calendarView.setSelectedDayBackgroundEndColor(getResources().getColor(R.color.textColor));
         calendarView.setSelectedRangeBackgroundColor(getResources().getColor(R.color.selected_blue_soft));
+        //calendarView.setSelectionType(SelectionType.RANGE);
 
 
         //Holiday kısmı
@@ -113,9 +113,9 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         Log.d("testsize", holidays.size()+ "");
 
         try {
-            holidays.put("2024-10", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi","test"));
-            holidays.put("2024-11", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi"));
-            determinators.put("2024-10-12", getResources().getColor(R.color.green));
+            holidays.put("2025-11", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi","test"));
+            holidays.put("2025-12", Arrays.asList("15 Kasım - Kurban Bayramı Arefesi"));
+            determinators.put("2025-11-11", getResources().getColor(R.color.green));
 
 
         } catch (Exception e) {
@@ -130,7 +130,14 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView.setDeterminators(determinators);
 
 
-        calendarView.addConnectedDays(connectedDays);
+        //calendarView.addConnectedDays(connectedDays);
+
+        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP_RIGHT);
+        calendarView.setConnectedDayIconRes(R.drawable.blue_circle_holiday);
+
+        HashMap<String,String> holidaysPins = new HashMap<>();
+        holidaysPins.put("2025-11-11","2025-11-11"); // yyyy-mm-dd
+        calendarView.setHolidaysPins(holidaysPins);
     }
 
     private void createCriterias() {

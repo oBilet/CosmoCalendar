@@ -778,12 +778,12 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
                 CircleAnimationTextView catvStart = (CircleAnimationTextView) llRangeSelection.findViewById(R.id.catv_start);
                 catvStart.setText(String.valueOf(days.first.getDayNumber()));
                 catvStart.setTextColor(getSelectedDayTextColor());
-                catvStart.showAsStartCircle(this, true);
+                catvStart.showAsStartCircle(this, true, days.first);
 
                 CircleAnimationTextView catvEnd = (CircleAnimationTextView) llRangeSelection.findViewById(R.id.catv_end);
                 catvEnd.setText(String.valueOf(days.second.getDayNumber()));
                 catvEnd.setTextColor(getSelectedDayTextColor());
-                catvEnd.showAsEndCircle(this, true);
+                catvEnd.showAsEndCircle(this, true, days.second);
 
                 CircleAnimationTextView catvMiddle = (CircleAnimationTextView) llRangeSelection.findViewById(R.id.catv_middle);
                 catvMiddle.showAsRange(this);

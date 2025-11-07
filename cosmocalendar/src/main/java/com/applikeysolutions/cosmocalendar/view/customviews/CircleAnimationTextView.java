@@ -1,6 +1,7 @@
 package com.applikeysolutions.cosmocalendar.view.customviews;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -80,6 +81,10 @@ public class CircleAnimationTextView extends AppCompatTextView {
             clearVariables();
         }
 
+        if (day != null && day.getIsHoliday()) {
+            drawHolidayCircle(canvas);
+        }
+
         if (selectionState != null) {
             switch (selectionState) {
                 case START_RANGE_DAY:
@@ -132,6 +137,26 @@ public class CircleAnimationTextView extends AppCompatTextView {
         super.draw(canvas);
     }
 
+
+    private void drawHolidayCircle(Canvas canvas) {
+
+        if (circleUnderPaint == null || stateChanged) {
+            createCircleUnderPaint();
+        }
+
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        float widthPercentage = 1.3f;
+        float heightPercentage = 5;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            widthPercentage = 1.5f;
+            heightPercentage = 2.9f;
+        }
+
+        canvas.drawCircle(getWidth() / widthPercentage, getHeight() / heightPercentage, CalendarUtils.dipToPx(getContext(), 3), circleUnderPaint);
+    }
+
+
     private void drawCircle(Canvas canvas) {
         if (animationProgress == 100) {
             if (day != null) {
@@ -142,34 +167,44 @@ public class CircleAnimationTextView extends AppCompatTextView {
             createCirclePaint();
         }
 
-        final int diameter = (int) (getWidth() - DEFAULT_PADDING * 2.3);
-        final int diameterProgress = animationProgress * diameter / MAX_PROGRESS;
+        int orientation =  getContext().getResources().getConfiguration().orientation;
+
+        float divider = 3.0f;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            divider = 5.85f;
+        }
 
         setBackgroundColor(Color.TRANSPARENT);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameterProgress / 2, circlePaint);
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getHeight() / divider, circlePaint);
     }
 
     private void drawCircleUnder(Canvas canvas) {
         if (circleUnderPaint == null || stateChanged) {
             createCircleUnderPaint();
         }
-        final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 2, circleUnderPaint);
+
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        float divider = 2.8f;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            divider = 5.5f;
+        }
+
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getHeight() / divider, circleUnderPaint);
     }
 
     private void drawCircleOutlined(Canvas canvas) {
         if (circleUnderPaint == null || stateChanged) {
             createCircleUnderPaint();
         }
-        final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 1.6f, circleUnderPaint);
+        final int diameter = (int) (getWidth() - DEFAULT_PADDING * 2.1);
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, diameter / 1.6f, circleUnderPaint);
     }
     private void drawInnerOutlinedCircle(Canvas canvas) {
         if (circleUnderPaint == null || stateChanged) {
             createCircleUnderPaintSingleRange();
         }
         final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 1.8f, circleUnderPaint);
+        canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, diameter / 1.8f, circleUnderPaint);
     }
 
     private void createCirclePaint() {
@@ -274,16 +309,26 @@ public class CircleAnimationTextView extends AppCompatTextView {
     }
 
     private Rect getRectangleForState() {
-        int additionalPadding = 11;
+
+        int orientation =  getContext().getResources().getConfiguration().orientation;
+
+        int scaledx = (int)(getWidth() * 0.14f);
+        int scaledy = (int)(getHeight() * 0.823f);;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            scaledx = (int)(getWidth() * 0.259f);
+            scaledy = (int) (getHeight() * 0.662f);
+        }
+
         switch (selectionState) {
             case START_RANGE_DAY:
-                return new Rect(getWidth() / 2, DEFAULT_PADDING - additionalPadding, getWidth(), getHeight() - DEFAULT_PADDING + additionalPadding);
+                return new Rect(getWidth() / 2, scaledx, getWidth(), scaledy);
 
             case END_RANGE_DAY:
-                return new Rect(0, DEFAULT_PADDING - additionalPadding, getWidth() / 2, getHeight() - DEFAULT_PADDING + additionalPadding);
+                return new Rect(0, scaledx, getWidth() / 2, scaledy);
 
             case RANGE_DAY:
-                return new Rect(0, DEFAULT_PADDING - additionalPadding, getWidth(), getHeight() - DEFAULT_PADDING + additionalPadding);
+                return new Rect(0, scaledx, getWidth(), scaledy);
 
             default:
                 return null;
@@ -358,16 +403,19 @@ public class CircleAnimationTextView extends AppCompatTextView {
         requestLayout();
     }
 
-    public void showAsSingleCircle(CalendarView calendarView) {
+    public void showAsSingleCircle(CalendarView calendarView, Day day) {
         clearVariables();
         selectionState = SelectionState.SINGLE_DAY;
+        this.day = day;
+        this.calendarView = calendarView;
         showAsCircle(calendarView.getSelectedDayBackgroundColor());
     }
 
-    public void showAsStartCircle(CalendarView calendarView, boolean animate) {
+    public void showAsStartCircle(CalendarView calendarView, boolean animate, Day day) {
         if (animate) {
             clearVariables();
         }
+        this.day = day;
         this.calendarView = calendarView;
         selectionState = SelectionState.START_RANGE_DAY;
         showAsCircle(calendarView.getSelectedDayBackgroundStartColor());
@@ -382,19 +430,21 @@ public class CircleAnimationTextView extends AppCompatTextView {
         showAsCircle(calendarView.getSelectedRangeBackgroundColor());
     }
 
-    public void showAsStartCircleWithouEnd(CalendarView calendarView, boolean animate) {
+    public void showAsStartCircleWithoutEnd(CalendarView calendarView, boolean animate, Day day) {
         if (animate) {
             clearVariables();
         }
+        this.day = day;
         this.calendarView = calendarView;
         selectionState = SelectionState.START_RANGE_DAY_WITHOUT_END;
         showAsCircle(calendarView.getSelectedDayBackgroundStartColor());
     }
 
-    public void showAsEndCircle(CalendarView calendarView, boolean animate) {
+    public void showAsEndCircle(CalendarView calendarView, boolean animate, Day day) {
         if (animate) {
             clearVariables();
         }
+        this.day = day;
         this.calendarView = calendarView;
         selectionState = SelectionState.END_RANGE_DAY;
         showAsCircle(calendarView.getSelectedDayBackgroundEndColor());
