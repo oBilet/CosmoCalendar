@@ -30,12 +30,19 @@ public class DayHolder extends BaseDayHolder {
         ctvDay.setText(String.valueOf(day.getDayNumber()));
         TextViewCompat.setTextAppearance(ctvDay, calendarView.getDayTextAppearance());
 
+        if (day.getIsHoliday()){
+            ctvDay.setTextColor(calendarView.getDisabledDayTextColor());
+            addHolidayIcon(day);
+        }
+
         boolean isSelected = selectionManager.isDaySelected(day);
         if (isSelected && !day.isDisabled() || day.isDeterminate()) {
             select(day);
         } else {
             unselect(day);
         }
+
+
 
         if (day.isCurrent()) {
             addCurrentDayIcon(isSelected);
@@ -45,6 +52,10 @@ public class DayHolder extends BaseDayHolder {
         if (day.isDisabled()) {
             ctvDay.setTextColor(calendarView.getDisabledDayTextColor());
         }
+    }
+
+    private void addHolidayIcon(Day day) {
+        ctvDay.showAsHolidayCircle(calendarView,day);
     }
 
     private void addCurrentDayIcon(boolean isSelected) {

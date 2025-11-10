@@ -64,6 +64,8 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
 
+        calendarView.setSelectionType(SelectionType.RANGE);
+
 
         //Set days you want to connect
         Calendar calendar = Calendar.getInstance();
@@ -127,16 +129,15 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
 
 
         calendarView.setHolidays(holidays);
-        calendarView.setDeterminators(determinators);
+        //calendarView.setDeterminators(determinators);
 
 
         //calendarView.addConnectedDays(connectedDays);
 
-        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP_RIGHT);
-        calendarView.setConnectedDayIconRes(R.drawable.blue_circle_holiday);
 
         HashMap<String,String> holidaysPins = new HashMap<>();
         holidaysPins.put("2025-11-11","2025-11-11"); // yyyy-mm-dd
+        holidaysPins.put("2025-11-12","2025-11-12"); // yyyy-mm-dd
         calendarView.setHolidaysPins(holidaysPins);
     }
 

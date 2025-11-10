@@ -138,6 +138,12 @@ public class CircleAnimationTextView extends AppCompatTextView {
     }
 
 
+    public void showAsHolidayCircle(CalendarView calendarView, Day day){
+        clearVariables();
+        this.day = day;
+        this.calendarView = calendarView;
+    }
+
     private void drawHolidayCircle(Canvas canvas) {
 
         if (circleUnderPaint == null || stateChanged) {
